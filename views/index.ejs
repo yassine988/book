@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Notes</title>
+    <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <nav>
+    <div class="container">
+        <h1>My Favorite Books</h1>
+        <form id="searchForm" class="search-form" method="get">
+            <input type="text" id="searchInput" name="query" placeholder="Search for books...">
+            <div class="search-results" id="searchResults"></div>
+            <!-- No need for a submit button -->
+        </form>
+    </div>
+</nav>
+    <div class="container">
+        <div class="books-container" id="searchResults">
+            <% books.forEach(book => { %>
+                <div class="book">
+                    <img src="<%= book.image %>" alt="<%= book.title %>" class="book-image">
+                    <div class="book-details">
+                        <h2><%= book.title %></h2>
+                        <p><strong>Rating:</strong> <%= book.rating %></p>
+                        <p><%= book.description %></p>
+                        <form action="/edit" method="post" class="edit-form">
+                            <input type="hidden" name="bookId" value="<%= book.id %>">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form action="/delete" method="post" class="delete-form">
+                            <input type="hidden" name="bookId" value="<%= book.id %>">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+    
+        searchInput.addEventListener('input', function() {
+          const query = this.value.trim();
+          if (query.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+          }
+    
+          fetch(`https://covers.openlibrary.org/b/isbn/${query}-L.jpg`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.blob(); // Get image blob
+            })
+            .then(blob => {
+              const imageURL = URL.createObjectURL(blob); // Create object URL for the image
+              displayResults(imageURL);
+            })
+            .catch(error => {
+              console.error('Error fetching data:', error);
+              searchResults.innerHTML = '<p>No results found</p>';
+              searchResults.style.display = 'block';
+            });
+        });
+    
+        function displayResults(imageURL) {
+          searchResults.innerHTML = `<img src="${imageURL}" alt="Book Cover">`;
+          searchResults.style.display = 'block';
+        }
+    </script>
+    
+  
+</body>
+</html>

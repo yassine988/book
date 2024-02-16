@@ -1,0 +1,92 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: whitesmoke;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+#searchInput{
+  width: 200px;
+  height: 50px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.book {
+  background-color: red;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 10px;
+  overflow: hidden;
+  width: 600px; /* Increase the width to fit the description and image */
+  height: auto; /* Set height to auto to adjust based on content */
+}
+
+.book-image {
+  width: 100%;
+  max-height: 250px; /* Set a maximum height to maintain aspect ratio */
+  object-fit: contain; /* Ensure the image fits within the container */
+}
+
+.book-details {
+  padding: 20px;
+}
+
+.book-details h2 {
+  margin-top: 0;
+  font-size: 1.5rem; /* Adjust the font size as needed */
+  color: #333; /* Adjust the color to improve visibility */
+}
+
+.book-details p {
+  margin: 10px 0;
+  color: black;
+}
+nav {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; /* Center the items */
+  align-items: center;
+}
+
+nav form {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Take up the remaining space */
+  
+}
+
+.book-details .edit-form button,
+.book-details .delete-form button {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
+
+.book-details .edit-form button:hover,
+.book-details .delete-form button:hover {
+    background-color: #45a049;
+}
